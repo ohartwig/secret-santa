@@ -18,14 +18,14 @@ $app->get('/user/{id}', function ($id) use ($app) {
             'message',
             array(
                 'type' => 'danger',
-                'content' => 'Vous devez être connecté pour accéder à ce profil'
+                'content' => 'Sie müssen eingeloggt sein, um auf dieses Profil zugreifen zu können'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
     }
 
     if ($app['session']->get('user')->getUserId() !== $id) {
-        $app['session']->getFlashBag()->add('message', array('type' => 'danger', 'content' => 'Cette opération ne vous est pas permise'));
+        $app['session']->getFlashBag()->add('message', array('type' => 'danger', 'content' => 'Diese Operation ist nicht erlaubt'));
         return $app->redirect($app['url_generator']->generate('login_get'));
     }
 
@@ -58,7 +58,7 @@ $app->get('/edit/user/{id}', function($id) use ($app) {
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -75,7 +75,7 @@ $app->get('/edit/user/{id}', function($id) use ($app) {
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -90,7 +90,7 @@ $app->get('/logout', function () use ($app) {
     $app['session']->getFlashBag()->add('message',
         array(
             'type' => 'success',
-            'content' => 'Vous êtes maintenant déconnecté'
+            'content' => 'Sie sind jetzt abgemeldet'
         )
     );
 
@@ -104,15 +104,14 @@ $app->get('/instance/join/{user_id}/{participation_id}/{participation_result}',
                 'message',
                 array(
                     'type' => 'danger',
-                    'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                    'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
                 )
             );
             return $app->redirect($app['url_generator']->generate('login_get'));
         }
 
         if ($app['session']->get('user')->getUserId() !== $user_id) {
-            $app['session']->getFlashBag()->add('message', array('type' => 'warning', 'content' => 'Cette opération ne
-            vous est pas permise'));
+            $app['session']->getFlashBag()->add('message', array('type' => 'warning', 'content' => 'Diese Operation ist nicht erlaubt'));
             return $app->redirect($app['url_generator']->generate('login_get'));
         }
 
@@ -130,7 +129,7 @@ $app->get('/administration/delete/user/{id}', function($id) use ($app) {
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -143,7 +142,7 @@ $app->get('/administration/delete/user/{id}', function($id) use ($app) {
         'message',
         array(
             'type' => 'success',
-            'content' => 'L\'utilisateur ' . $id . ' a bien été supprimé'
+            'content' => 'Der Benutzer ' . $id . ' wurde gelöscht'
         )
     );
 
@@ -156,13 +155,14 @@ $app->get('/instance/run/{instance_id}', function ($instance_id) use ($app) {
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
     }
 
     // TODO test si le tirage a déjà était fait, en gros si l'identifiant de l'instance existe
+    // TODO test if the draw has already been done, basically if the instance identifier exists
 
     $participations = $app['dao.participation']->findAll();
 
@@ -207,7 +207,7 @@ $app->get('/administration', function () use ($app) {
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'You do not have sufficient access rights to access this part'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));

@@ -57,6 +57,7 @@ CREATE TABLE `santa_result` (
   `result_id` int(11) NOT NULL,
   `result_instance_id` int(11) NOT NULL,
   `result_sender_user_id` int(11) NOT NULL,
+  `result_sender_parcelcode` varchar(255) NOT NULL,
   `result_recipient_user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -73,7 +74,14 @@ CREATE TABLE `santa_user` (
   `user_firstname` varchar(255) NOT NULL,
   `user_lastname` varchar(255) NOT NULL,
   `user_email` varchar(255) NOT NULL,
-  `user_access` varchar(10) NOT NULL
+  `user_access` varchar(10) NOT NULL,
+  `user_animal_species` int(2) NOT NULL,
+  `user_animal_racial` text,
+  `user_street` varchar(255) NOT NULL,
+  `user_street_number` varchar(255) NOT NULL,
+  `user_zip` varchar(255) NOT NULL,
+  `user_city` varchar(255) NOT NULL,
+  `user_country` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

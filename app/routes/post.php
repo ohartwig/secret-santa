@@ -6,7 +6,7 @@ $app->post('/signup', function (Request $request) use ($app) {
     if (strlen($request->request->get('user_login')) < 3) {
         $app['session']->getFlashBag()->add('message', array(
             'type' => 'danger', 
-            'content' => 'Votre identifiant de connexion doit avoir une longueur minimale de 3 caractères.'
+            'content' => 'Ihre Login-ID muss mindestens 3 Zeichen lang sein.'
         ));
         return $app->redirect($app['url_generator']->generate('signup_get'));
     }
@@ -14,20 +14,18 @@ $app->post('/signup', function (Request $request) use ($app) {
     if (strlen($request->request->get('user_password')) < 4) {
         $app['session']->getFlashBag()->add('message', array(
             'type' => 'danger', 
-            'content' => 'Votre mot de passe doit avoir une longueur minimale de 5 caractères. Nous vous
-                conseillons l\'utilisation d\'un mot de passe composé de lettres, majuscules et miniscules ainsi que
-                de caractères numériques et de symboles.'
+            'content' => 'Ihr Passwort muss mindestens 5 Zeichen lang sein. Wir empfehlen die Verwendung eines Passworts aus Buchstaben, Groß- und Kleinbuchstaben sowie numerischen Zeichen und Symbolen.'
         ));
         return $app->redirect($app['url_generator']->generate('signup_get'));
     }
 
     if ($request->request->get('user_password') !== $request->request->get('user_password_verification')) {
-        $app['session']->getFlashBag()->add('message', array('type' => 'danger', 'content' => 'Les deux mots de passe ne correspondent pas.'));
+        $app['session']->getFlashBag()->add('message', array('type' => 'danger', 'content' => 'Die beiden Passwörter stimmen nicht überein.'));
         return $app->redirect($app['url_generator']->generate('signup_get'));
     }
 
     if ($app['dao.user']->userLoginExist($request->request->get('user_login'))) {
-        $app['session']->getFlashBag()->add('message', array('type' => 'danger', 'content' => "Le pseudo " . $request->request->get('username') . " déjà utilisé"));
+        $app['session']->getFlashBag()->add('message', array('type' => 'danger', 'content' => "Diese Name " . $request->request->get('username') . " wird schon verwendet"));
         return $app->redirect($app['url_generator']->generate('signup_get'));
     }
 
@@ -52,7 +50,7 @@ $app->post('/signup', function (Request $request) use ($app) {
     $app['session']->getFlashBag()->add('message',
         array(
             'type' => 'success',
-            'content' => "Votre compte a été créé, vous êtes maintenant connecté à l'application."
+            'content' => "Ihr Konto wurde erstellt, Sie sind jetzt mit der App verbunden."
         )
     );
 
@@ -68,7 +66,7 @@ $app->post('/login', function (Request $request) use ($app) {
         $app['session']->getFlashBag()->add('message',
             array(
                 'type' => 'success',
-                'content' => 'Connexion réussie'
+                'content' => 'Erfolgreiche Verbindung'
             )
         );
         return $app->redirect($app['url_generator']->generate('index'));
@@ -76,7 +74,7 @@ $app->post('/login', function (Request $request) use ($app) {
         $app['session']->getFlashBag()->add('message',
             array(
                 'type' => 'danger',
-                'content' => 'Mauvaise combinaison d\'identifiants.'
+                'content' => 'Schlechte Kombination von Bezeichnern.'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -89,7 +87,7 @@ $app->post('/administration/new/instance', function(Request $request) use ($app)
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -102,7 +100,7 @@ $app->post('/administration/new/instance', function(Request $request) use ($app)
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Le nom de l\'instance doit faire plus de 3 caractères' 
+                'content' => 'Instanzname muss aus mehr als 3 Zeichen bestehen'
             )
         );
         return $app->redirect($app['url_generator']->generate('administration'));
@@ -115,7 +113,7 @@ $app->post('/administration/new/instance', function(Request $request) use ($app)
             'message',
             array(
                 'type' => 'danger',
-                'content' => 'Une instance de ce nom existe déjà'
+                'content' => 'Eine Instanz dieses Namens existiert bereits'
             )
         );
         return $app->redirect($app['url_generator']->generate('administration'));
@@ -128,7 +126,7 @@ $app->post('/administration/new/instance', function(Request $request) use ($app)
     $app['session']->getFlashBag()->add('message',
         array(
             'type' => 'success',
-            'content' => 'Votre instance ' . $instance_name . ' ' . $instance_hash . ' a bien été créée'
+            'content' => 'Ihre Instanz ' . $instance_name . ' ' . $instance_hash . ' wurde erstellt'
         )
     );
     return $app->redirect($app['url_generator']->generate('index'));
@@ -140,7 +138,7 @@ $app->post('/instance/join', function(Request $request) use ($app) {
             'message',
             array(
                 'type' => 'danger',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -155,7 +153,7 @@ $app->post('/instance/join', function(Request $request) use ($app) {
             'message',
             array(
                 'type' => 'danger',
-                'content' => 'Cette instance n\'existe pas.'
+                'content' => 'Diese Instanz existiert nicht.'
             )
         );
         return $app->redirect($app['url_generator']->generate('index'));
@@ -169,7 +167,7 @@ $app->post('/instance/join', function(Request $request) use ($app) {
             'message',
             array(
                 'type' => 'warning',
-                'content' => 'Vous avez déjà rejoins cette instance.'
+                'content' => 'Sie sind dieser Instanz bereits beigetreten.'
             )
         );
         return $app->redirect($app['url_generator']->generate('index'));
@@ -181,7 +179,7 @@ $app->post('/instance/join', function(Request $request) use ($app) {
         'message',
         array(
             'type' => 'success',
-            'content' => 'Vous avez bien rejoins l\'instance ' . $instance->getInstanceName()
+            'content' => 'Sie haben sich der Instanz angeschlossen ' . $instance->getInstanceName()
         )
     );
     return $app->redirect($app['url_generator']->generate('index'));
@@ -194,7 +192,7 @@ $app->post('/modify/user/{id}', function(Request $request, $id) use ($app) {
             'message',
             array(
                 'type' => 'danger',
-                'content' => 'Vous n\'avez pas les droits d\'accès suffisant pour accéder à cette partie'
+                'content' => 'Sie haben keine ausreichenden Zugriffsrechte, um auf dieses Teil zuzugreifen'
             )
         );
         return $app->redirect($app['url_generator']->generate('login_get'));
@@ -210,9 +208,7 @@ $app->post('/modify/user/{id}', function(Request $request, $id) use ($app) {
             $app['session']->getFlashBag()->add('message',
                 array(
                     'type' => 'danger',
-                    'content' => 'Votre mot de passe doit avoir une longueur minimale de 5 caractères. Nous vous
-                conseillons l\'utilisation d\'un mot de passe composé de lettres, majuscules et miniscules ainsi que
-                de caractères numériques et de symboles.'
+                    'content' => 'Ihr Passwort muss mindestens 5 Zeichen lang sein. Wir empfehlen die Verwendung eines Passworts aus Buchstaben, Groß- und Kleinbuchstaben sowie numerischen Zeichen und Symbolen.'
                 )
             );
             return $app->redirect($app['url_generator']->generate('edit_user_id', array('id' => $user->getUserId())));
@@ -222,7 +218,7 @@ $app->post('/modify/user/{id}', function(Request $request, $id) use ($app) {
             $app['session']->getFlashBag()->add('message',
                 array(
                     'type' => 'danger',
-                    'content' => 'Les deux mots de passe ne correspondent pas.'
+                    'content' => 'Die beiden Passwörter stimmen nicht überein.'
                 )
             );
             return $app->redirect($app['url_generator']->generate('edit_user_id', array('id' => $user->getUserId())));
@@ -249,7 +245,7 @@ $app->post('/modify/user/{id}', function(Request $request, $id) use ($app) {
     $app['session']->getFlashBag()->add('message',
         array(
             'type' => 'success',
-            'content' => "Les paramètres ont bien été sauvegardés"
+            'content' => "Parameter wurden gespeichert"
         )
     );
 
